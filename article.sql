@@ -4,7 +4,7 @@ use article;
 CREATE TABLE `article` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `uid` int unsigned NOT NULL DEFAULT '0' COMMENT '发布人id',
-  `cat_id` int unsigned NOT NULL DEFAULT '0' COMMENT '分类id',
+  `cat_id` varchar(200) not null default '' COMMENT '分类id',
   `title` varchar(30) NOT NULL DEFAULT '' COMMENT '标题',
   `content` text COMMENT '内容',
   `read_num` int unsigned NOT NULL DEFAULT '0' COMMENT '浏览量',

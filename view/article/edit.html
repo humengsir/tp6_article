@@ -22,10 +22,10 @@
                             <div class="tab-pane active in" id="home">
                                 <form id="tab" method="post" action="" data-href="/article/edit" data-redirect="/article">
                                     <label>分类</label>
-                                    <select name="cat_id" class="input-xlarge">
+                                    <select name="cat_id[]" class="input-xlarge" multiple="multiple" style="height: 250px;">
                                         <option value="">--请选择分类--</option>
                                         {volist name=":get_all_category()" id="vo"}
-                                        <option {if condition="$vo.id eq $info.cat_id"}selected="selected"{/if} value="{$vo.id}" class="input-xlarge option">{$vo.cat_name}</option>
+                                        <option {if condition="in_array($vo.id, $info.cat_id)"}selected="selected"{/if} value="{$vo.id}" class="input-xlarge option">{$vo.cat_name}</option>
                                         {/volist}
                                     </select>
                                     <label>标题</label>
