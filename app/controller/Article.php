@@ -17,12 +17,17 @@ class Article extends BaseController
         $this->model = new ArticleModel();
     }
 
-    public function index()
+    public function index(string $cat_id = '')
     {
         View::assign('title', '文章列表 - 管理中心');
-        $list_data = $this->model->list_data(['is_delete' => 0]);
+        $where = ['is_delete' => 0];
+        if ($cat_id > 0) {
+            $where['find_in_set']['cat_id'] = (string)$cat_id;
+        }
+        $list_data = $this->model->list_data($where);
         View::assign('list', $list_data->items());
         View::assign('pages', $list_data->render());
+        View::assign('cat_id', $cat_id);
         return view();
     }
 
