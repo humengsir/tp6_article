@@ -32,7 +32,7 @@ class Article extends BaseController
             // handle for post
             $title = $request->post('title');
             $content = $request->post('content');
-            $cat_id = (int)$request->post('cat_id');
+            $cat_id = array_to_string($request->post('cat_id'));
             if (empty($cat_id)) {
                 return json(['error_msg' => '分类必须选择']);
             }
@@ -63,7 +63,7 @@ class Article extends BaseController
             $id = $request->post('id');
             $title = $request->post('title');
             $content = $request->post('content');
-            $cat_id = (int)$request->post('cat_id');
+            $cat_id = array_to_string($request->post('cat_id'));
             if (empty($cat_id)) {
                 return json(['error_msg' => '分类必须选择']);
             }
@@ -85,6 +85,7 @@ class Article extends BaseController
             return Redirect('/article/index');
         }
         $info = $info->toArray();
+        $info['cat_id'] = string_to_array($info['cat_id']);
         View::assign('title', '编辑文章 - 管理中心');
         View::assign('info', $info);
         return view();

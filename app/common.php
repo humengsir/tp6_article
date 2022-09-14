@@ -126,14 +126,24 @@ function get_all_category()
     return $list;
 }
 
-function format_category_name(int $cat_id) {
-    $list = get_all_category();
-    foreach ($list as $value) {
-        if ($value['id'] === $cat_id) {
-            return $value['cat_name'];
-        }
+function array_to_string(array $array = [])
+{
+    return implode(",", array_filter($array));
+}
+
+function string_to_array(string $string = '')
+{
+    return array_filter(explode(",", $string));
+}
+
+function format_category_name(string $cat_id = '') {
+    $ids = string_to_array($cat_id);
+    $list = array_column(get_all_category(), 'cat_name', 'id');
+    $str = '';
+    foreach ($ids as $id) {
+        $str .= ($list[$id] ?? "") . " ";
     }
-    return 0;
+    return $str;
 }
 
 function get_all_group()
