@@ -18,16 +18,27 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#home" data-toggle="tab">请填写文章资料</a></li>
                         </ul>
+                        <style>
+                            .node-label {
+                                display: inline-block;
+                                font-size: 12px;
+                                width: 80px;
+                                cursor: pointer;
+                                margin-left: 5px;
+                            }
+                            .node-label>input{
+                                margin-bottom: 6px;
+                            }
+                        </style>
                         <div id="myTabContent" class="tab-content">
                             <div class="tab-pane active in" id="home">
                                 <form id="tab" method="post" action="" data-href="/article/add" data-redirect="/article">
                                     <label>分类</label>
-                                    <select name="cat_id[]" class="input-xlarge" multiple="multiple" style="height: 250px;">
-                                        <option value="">--请选择分类--</option>
-                                        {volist name=":get_all_category()" id="vo"}
-                                        <option value="{$vo.id}" class="input-xlarge option">{$vo.cat_name}</option>
-                                        {/volist}
-                                    </select>
+                                    {volist name=":get_all_category()" id="vo"}
+                                    <label class="node-label">
+                                        <input type="checkbox" name="cat_id[]" value="{$vo.id}">{$vo.cat_name}
+                                    </label>
+                                    {/volist}
                                     <label>标题</label>
                                     <input type="text" name="title" value="" required="true" class="input-xlarge" />
                                     <label>内容</label>
