@@ -25,7 +25,7 @@
                                     <select name="cat_id" class="input-xlarge">
                                         <option value="">--请选择分类--</option>
                                         {volist name=":get_all_category()" id="vo"}
-                                        <option {if condition="$vo.id eq $info.id"}selected="selected"{/if} value="{$vo.id}" class="input-xlarge option">{$vo.cat_name}</option>
+                                        <option {if condition="$vo.id eq $info.cat_id"}selected="selected"{/if} value="{$vo.id}" class="input-xlarge option">{$vo.cat_name}</option>
                                         {/volist}
                                     </select>
                                     <label>标题</label>
