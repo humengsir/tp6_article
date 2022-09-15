@@ -90,7 +90,6 @@ class Article extends BaseController
             return Redirect('/article/index');
         }
         $info = $info->toArray();
-        $info['cat_id'] = string_to_array($info['cat_id']);
         View::assign('title', '编辑文章 - 管理中心');
         View::assign('info', $info);
         return view();

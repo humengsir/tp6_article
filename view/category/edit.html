@@ -23,6 +23,13 @@
                                 <form id="tab" method="post" action="" data-href="/category/edit" data-redirect="/category">
                                     <label>分类名称</label>
                                     <input type="text" name="cat_name" value="{$info.cat_name}" required="true" class="input-xlarge" />
+                                    <label>父级分类</label>
+                                    <select name="pid" id="pid">
+                                        <option {if condition="$info.pid eq 0"}selected="selected"{/if} value="0">顶级分类</option>
+                                        {volist name=":get_cat_tree()" id="vo"}
+                                        <option {if condition="$info.pid eq $vo.id"}selected="selected"{/if} value="{$vo.id}">{$vo.level|str_repeat="----", ###}{$vo.cat_name}</option>
+                                        {/volist}
+                                    </select>
                                     <input type="hidden" name="id" value="{$info.id}">
                                     <div class="btn-toolbar">
                                         <button type="button" id="sub_btn" class="btn btn-primary"><strong>提交</strong></button>

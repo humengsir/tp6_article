@@ -25,10 +25,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {volist name="list" id="vo"}
+                                    {volist name=":get_cat_tree()" id="vo"}
                                     <tr>
                                         <td>{$vo.id}</td>
-                                        <td>{$vo.cat_name}</td>
+                                        <td>{$vo.level|str_repeat="----", ###}{$vo.cat_name}</td>
                                         <td>
                                             <a href="/category/edit?id={$vo.id}" title="修改"><i class="icon-pencil"></i></a> &nbsp; &nbsp; 
                                             <a class="cancel" href="javascript:;" data-href="/category/del?id={$vo.id}" title="删除">删除</a>

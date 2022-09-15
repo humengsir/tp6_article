@@ -187,6 +187,50 @@ function get_all_room()
     return $list;
 }
 
+function get_cat_tree(array $list = [])
+{
+    $list = create_tree(get_all_category(), 0, 0);
+    return $list;
+}
+
+function create_tree(array $array = [], int $pid = 0, int $level = 0)
+{
+    static $result = [];
+    foreach ($array as $key => $value) {
+        if ($value['pid'] == $pid) {
+            $result[] = [
+                'id' => $value['id'],
+                'cat_name' => $value['cat_name'],
+                'level' => $level
+            ];
+            unset($array[$key]);
+            create_tree($array, $value['id'], $level + 1);
+        }
+    }
+    $level = 0;
+    return $result;
+}
+
+function get_all_son(array $array = [], int $pid = 0)
+{
+    $length = count($array);
+    $list = [$pid];
+    for ($i = 0; $i < $length; $i++)
+    {
+        foreach ($array as $key => $value) {
+            if ($pid != 0 && $value['pid'] == 0 && !in_array($value['pid'], $list)) {
+                unset($array[$key]);
+                continue;
+            }
+            if (in_array($value['pid'], $list)) {
+                $list[] = $value['id'];
+                unset($array[$key]);
+            }
+        }
+    }
+    return $list;
+}
+
 function get_node_id_by_url(string $url = '')
 {
     $list = get_all_node();

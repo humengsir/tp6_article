@@ -20,7 +20,6 @@ class Category extends BaseController
     public function index()
     {
         View::assign('title', '文章分类列表 - 管理中心');
-        View::assign('list', get_all_category());
         return view();
     }
 
@@ -29,8 +28,10 @@ class Category extends BaseController
         if ($request->isPost()) {
             // handle for post
             $cat_name = $request->post('cat_name');
+            $pid = (int)$request->post('pid');
             $data = [
                 'cat_name' => $cat_name,
+                'pid' => $pid,
             ];
             $res = $this->model->save($data);
             if ($res) {
@@ -48,11 +49,16 @@ class Category extends BaseController
             // handle for post
             $id = $request->post('id');
             $cat_name = $request->post('cat_name');
+            $pid = (int)$request->post('pid');
+            if (in_array($pid, get_all_son(get_all_category(), $id))) {
+                return json(['error_msg' => '父级分类不能选择自己和子孙分类']);
+            }
             $data = [
                 'cat_name' => $cat_name,
+                'pid' => $pid,
             ];
             $res = $this->model->where(['id' => $id])->update($data);
-            if ($res) {
+            if ($res !== false) {
                 return json(['error_msg' => '']);
             }
             return json(['error_msg' => '编辑失败']);

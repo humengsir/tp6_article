@@ -34,11 +34,12 @@
                             <div class="tab-pane active in" id="home">
                                 <form id="tab" method="post" action="" data-href="/article/edit" data-redirect="/article">
                                     <label>分类</label>
-                                    {volist name=":get_all_category()" id="vo"}
-                                    <label class="node-label">
-                                        <input type="checkbox" name="cat_id[]" {if condition="in_array($vo.id, $info.cat_id)"}checked="checked"{/if} value="{$vo.id}">{$vo.cat_name}
-                                    </label>
-                                    {/volist}
+                                    <select name="cat_id[]" id="cat_id">
+                                        <option {if condition="$info.cat_id eq 0"}selected="selected"{/if} value="0">顶级分类</option>
+                                        {volist name=":get_cat_tree()" id="vo"}
+                                        <option {if condition="$info.cat_id eq $vo.id"}selected="selected"{/if} value="{$vo.id}">{$vo.level|str_repeat="----", ###}{$vo.cat_name}</option>
+                                        {/volist}
+                                    </select>
                                     <label>标题</label>
                                     <input type="text" name="title" value="{$info.title}" required="true" class="input-xlarge" />
                                     <label>内容</label>

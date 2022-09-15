@@ -9,6 +9,6 @@ class CategoryModel extends Model
 
     public function get_all_category()
     {
-        return self::field("id,cat_name")->select()->toArray();
+        return self::field("id, cat_name, pid")->select()->toArray();
     }
 }

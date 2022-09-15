@@ -23,6 +23,13 @@
                                 <form id="tab" method="post" action="" data-href="/category/add" data-redirect="/category">
                                     <label>分类名称</label>
                                     <input type="text" name="cat_name" value="" required="true" class="input-xlarge" />
+                                    <label>父级分类</label>
+                                    <select name="pid" id="pid">
+                                        <option value="0">顶级分类</option>
+                                        {volist name=":get_cat_tree()" id="vo"}
+                                        <option value="{$vo.id}">{$vo.level|str_repeat="----", ###}{$vo.cat_name}</option>
+                                        {/volist}
+                                    </select>
                                     <div class="btn-toolbar">
                                         <button type="button" id="sub_btn" class="btn btn-primary"><strong>提交</strong></button>
                                     </div>
